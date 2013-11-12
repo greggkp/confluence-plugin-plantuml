@@ -30,7 +30,7 @@ import java.util.Map;
  * Supported SpaceGraph Macro parameters.
  */
 public final class DbStructureMacroParams {
-   private int DEFAULT_NODE_FONTSIZE = 9;
+   private final int DEFAULT_NODE_FONTSIZE = 9;
    
    public enum Param {
       jdbcName,

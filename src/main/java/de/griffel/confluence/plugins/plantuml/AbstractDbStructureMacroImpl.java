@@ -210,7 +210,6 @@ abstract class AbstractDbStructureMacroImpl {
             columnDefaultValue = defVal;
             charOctetLenght = length;
             ordinalPosition = op;
-            System.out.println(tc + " " + ts  + " " + tn + " " + cn + " " + dt+ " " + tyn+ " " + cs+ " " + dd+ " " + radix+ " " + n + " " + r + " " + defVal + " " + length + " " + op);
         }
     }
 
@@ -231,7 +230,6 @@ abstract class AbstractDbStructureMacroImpl {
             tableType = tt;
             remarks = r;
             columns = new LinkedList<ColumnDef>();
-            System.out.println(tc + " " + ts  + " " + tn + " " + tt + " " + r);
         }
     }
     
@@ -265,9 +263,6 @@ abstract class AbstractDbStructureMacroImpl {
             keySeqNumber = sn;
             namePk = np;
             nameFk = nf;
-            System.out.println(tcp + " " + tsp  + " " + tnp + " " + cnp + " " +
-                               tcf + " " + tsf  + " " + tnf + " " + cnf + " " + 
-                               sn + " " + np + " " + nf);
         }
         String getPkId() {
             return tableCatalogPk + "#" + tableSchemaPk + "#" + tableNamePk;
@@ -343,13 +338,12 @@ abstract class AbstractDbStructureMacroImpl {
             }   
          } catch (SQLException e) {
               _errorMessage = e.getMessage();
-              e.printStackTrace();
          } finally {
                 try {
                     if (rs != null) {
                         rs.close();
                     }
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     // do nothing
                 }
          }
@@ -371,13 +365,12 @@ abstract class AbstractDbStructureMacroImpl {
             }   
          } catch (SQLException e) {
               _errorMessage = e.getMessage();
-              e.printStackTrace();
          } finally {
                 try {
                     if (rs != null) {
                         rs.close();
                     }
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     // do nothing
                 }
          }
@@ -400,13 +393,12 @@ abstract class AbstractDbStructureMacroImpl {
             }   
          } catch (SQLException e) {
               _errorMessage = e.getMessage();
-              e.printStackTrace();
          } finally {
                 try {
                     if (rs != null) {
                         rs.close();
                     }
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     // do nothing
                 }
          }
@@ -418,7 +410,7 @@ abstract class AbstractDbStructureMacroImpl {
      * @param jdbcName  Database which is configured at "java:comp/env/jdbc/<jdbcName>"
      * @return Connection or null if none could be made. _errorMessage contains reason in the latter case.
      */
-    private final DatabaseMetaData getDatabaseConnection(String jdbcName) {
+    private DatabaseMetaData getDatabaseConnection(String jdbcName) {
         Context jndiContext = null;
         DatabaseMetaData dbmd = null;
         try {
@@ -429,11 +421,9 @@ abstract class AbstractDbStructureMacroImpl {
                 dbmd = con.getMetaData();
             } catch (SQLException ex) {
                 _errorMessage = ex.getMessage();
-                ex.printStackTrace();
             }
         } catch (NamingException ex) {
             _errorMessage = ex.getMessage();
-            ex.printStackTrace();
         } finally {
             if (jndiContext != null) {
                 try {
